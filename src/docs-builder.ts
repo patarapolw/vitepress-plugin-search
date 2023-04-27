@@ -2,6 +2,7 @@ import { Options } from "./types";
 import * as fs from "fs/promises";
 import { slugify } from "@mdit-vue/shared";
 import globToRegExp from "glob-to-regexp";
+import { Parser } from 'htmlparser2'
 
 const { readdir, readFile } = fs;
 let rootPath = "";
@@ -92,6 +93,27 @@ const removeStyleTag = (mdCode: string): string =>
   mdCode.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "").trim();
 
 /**
+ * remove HTML tags from md content
+ * @param mdCode the content of md files
+ * @returns the content without HTML tags
+ */
+const removeHTMLTag = async (mdCode: string) => {
+  return new Promise<string>((resolve, reject) => {
+    const texts: string[] = []
+    const parser = new Parser({
+      ontext(t) {
+        texts.push(t);
+      },
+      onend() {
+        resolve(texts.join(""));
+      },
+      onerror: reject
+    })
+    parser.end(mdCode);
+  })
+}
+
+/**
  * create index docs to be used later on lunr
  * @param dirName the full path name containing the md files
  * @returns a list cleaned md contents
@@ -111,7 +133,7 @@ const processMdFiles = async (
     let cleanCode = removeStyleTag(
       removeScriptTag(replaceMdSyntax(removeFrontMatter(code)))
     );
-    allData.push({ content: cleanCode, path: mdFile });
+    allData.push({ content: await removeHTMLTag(cleanCode), path: mdFile });
   }
 
   return Promise.resolve(allData);

@@ -1,5 +1,5 @@
 {
-  "name": "vitepress-plugin-search",
+  "name": "@patarapolw/vitepress-plugin-flexsearch",
   "version": "1.0.4-alpha.20",
   "description": "Provide local search to your documentation site.",
   "types": "./dist/types/src/index.d.ts",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emersonbottero/vitepress-plugin-search.git"
+    "url": "git+https://github.com/patarapolw/vitepress-plugin-search.git"
   },
   "keywords": [
     "vitepress",
@@ -36,9 +36,9 @@
   "author": "Emerson Bottero",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/emersonbottero/vitepress-plugin-search/issues"
+    "url": "https://github.com/patarapolw/vitepress-plugin-search/issues"
   },
-  "homepage": "https://github.com/emersonbottero/vitepress-plugin-search#readme",
+  "homepage": "https://github.com/patarapolw/vitepress-plugin-search#readme",
   "peerDependencies": {
     "flexsearch": "^0.7.31",
     "vitepress": "^1.0.0-alpha.65",
@@ -56,6 +56,7 @@
     "@types/flexsearch": "^0.7.3",
     "@types/markdown-it": "^12.2.3",
     "glob-to-regexp": "^0.4.1",
+    "htmlparser2": "^8.0.2",
     "markdown-it": "^13.0.1"
   }
 }

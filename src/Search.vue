@@ -166,15 +166,12 @@ function cleanSearch() {
             <div class="VPPluginSearch-search-list">
               <div
                 v-for="(group, groupKey) of GroupBy(result, (x:any) =>
-                  x.link.split('/').slice(0, -1).join('-')
+                  '/' + x.link.split('#')[0]
                 )"
                 :key="groupKey"
               >
                 <span class="VPPluginSearch-search-group">{{
-                  groupKey
-                    ? groupKey.toString()[0].toUpperCase() +
-                      groupKey.toString().slice(1)
-                    : "Home"
+                  groupKey || "Home"
                 }}</span>
                 <a
                   :href="origin + item.link"
